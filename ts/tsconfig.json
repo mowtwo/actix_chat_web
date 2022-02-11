@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "es5",
+    "lib": [
+      "DOM",
+      "ES2015"
+    ],
+    "module": "ES2020",
+    "outDir": "../js/ts-dist/"
+  }
+}
