@@ -14,7 +14,18 @@
 
 <body>
   <div id="app">
-    <h1>{{hello}}</h1>
+    <div class="app-block">
+      <div :class="['left',leftMinize?'mini':'']">
+        <div class="search-block">
+          <div class="search">
+
+          </div>
+        </div>
+      </div>
+      <div class="right">
+
+      </div>
+    </div>
   </div>
   <script type="module" src="/js/ts-dist/app.js"></script>
 </body>

@@ -5,5 +5,5 @@ import type { CreateAppFn } from "./types/index"
 const createApp = _createApp as CreateAppFn
 
 const app = createApp({
-
+  leftMinize: false
 }).mount('#app')

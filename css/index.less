@@ -5,4 +5,28 @@
   overflow: hidden;
   top: 0;
   left: 0;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .app-block {
+    background-color: #fff;
+    overflow: hidden;
+    border-radius: 5px;
+    width: calc(100vw - 40px);
+    height: calc(100vh - 40px);
+    margin: 20px;
+    box-shadow: rgb(187, 187, 187) 0 0 10px;
+    display: grid;
+    grid-template-columns: repeat(1, 360px 1fr);
+
+    & > .left {
+      background-color: rgb(48, 57, 66);
+      transition: width 0.2s ease-out;
+      &.mini {
+      }
+    }
+    & > .right {
+    }
+  }
 }
