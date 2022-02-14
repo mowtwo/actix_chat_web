@@ -17,7 +17,7 @@ git clone https://github.com/mowtwo/actix_chat_web
 - rust@1.6
 - tsc@4.4.4
 - cargo-watch
-- Window
+- Windows
 
 ## 运行
 
