@@ -1,9 +1,12 @@
-// @ts-ignore
-import { createApp as _createApp } from 'https://unpkg.com/petite-vue?module'
-import type { CreateAppFn } from "./types/index"
+import { createApp } from "./utils.js"
+import { App } from "./components/App.js"
+import { SearchBlock } from "./components/SearchBlock.js"
+import { ChatItem } from "./components/ChatItem.js"
+import { ChatList } from "./components/ChatList.js"
 
-const createApp = _createApp as CreateAppFn
-
-const app = createApp({
-  leftMinize: false
+createApp({
+  App,
+  SearchBlock,
+  ChatItem,
+  ChatList
 }).mount('#app')

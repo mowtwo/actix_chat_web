@@ -13,20 +13,72 @@
 </head>
 
 <body>
-  <div id="app">
-    <div class="app-block">
-      <div :class="['left',leftMinize?'mini':'']">
-        <div class="search-block">
-          <div class="search">
-
+  <div id="app" v-scope="App()">
+    <div class="app-size">
+      <div class="app-block" @contextmenu="appProxyContextMenu">
+        <div class="left">
+          <div class="avatar" :title="userStore.nickname">
+            <img :src="userStore.avatar" alt="avatar" draggable="false">
+          </div>
+          <div class="tools">
+            <div class="button setting">
+              <i class="iconfont icon-setting"></i>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="right">
-
+        <div :class="['middle',leftMinize?'mini':'']">
+          <div class="search-block" v-scope="SearchBlock({
+                  placeholder:'搜索',onInput:searchInput
+                })"></div>
+          <div class="chat-list" v-scope="ChatList()"></div>
+        </div>
+        <div class="right">
+        </div>
       </div>
     </div>
   </div>
+  <!-- component define -->
+  <template id="search-block">
+    <div class="search">
+      <div class="mask" v-if="!inputFocus && searchStore.searchWords === ''" @click="$refs?.inputRef.focus()">
+        <i class="iconfont icon-search"></i>
+        <div class="text">{{placeholder}}</div>
+      </div>
+      <div class="clear" v-if="inputFocus && searchStore.searchWords !== ''">
+        <i class="iconfont icon-clear" @click="searchStore.searchWords = ''"></i>
+      </div>
+      <div class="input-wrapper">
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" @focus="inputFocus = true"
+          @blur="nextTickBlur" ref="inputRef" type="text" v-model="searchStore.searchWords" @input="onInput">
+      </div>
+    </div>
+  </template>
+
+  <template id="chat-item">
+    <div :class="['chat-item']" :title="nickname">
+      <div class="avatar">
+        <img :src="avatar" alt="avatar">
+      </div>
+      <div class="info">
+        <div class="nickname">
+          {{nickname}}
+        </div>
+        <div class="preview">
+          {{lastMessage}}
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="chat-list">
+    <div class="items-wrapper">
+      <div v-for="item of chatStore.chatList"
+        :class="['item-wrapper',chatStore.currentUserId == item.id ? 'checked':'']" :key="item.id"
+        v-scope="ChatItem({...item})"></div>
+    </div>
+  </template>
+
+  <!-- define end -->
   <script type="module" src="/js/ts-dist/app.js"></script>
 </body>
 

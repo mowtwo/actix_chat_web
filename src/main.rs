@@ -5,7 +5,6 @@ mod utils;
 
 use actix_web::{App, HttpServer};
 
-
 use routes::get_res::{get_res_js, get_res_less};
 use routes::page::chat_home;
 
