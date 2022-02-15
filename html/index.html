@@ -20,8 +20,13 @@
           <div class="avatar" :title="userStore.nickname">
             <img :src="userStore.avatar" alt="avatar" draggable="false">
           </div>
+          <div class="add-items">
+            <div class="button" title="添加群/人">
+              <i class="iconfont icon-add"></i>
+            </div>
+          </div>
           <div class="tools">
-            <div class="button setting">
+            <div class="button setting" title="设置">
               <i class="iconfont icon-setting"></i>
             </div>
           </div>
@@ -33,6 +38,7 @@
           <div class="chat-list" v-scope="ChatList()"></div>
         </div>
         <div class="right">
+          <div v-if="" class="chat-room-wrapper" v-scope="ChatRoom()"></div>
         </div>
       </div>
     </div>
@@ -76,6 +82,43 @@
         :class="['item-wrapper',chatStore.currentUserId == item.id ? 'checked':'']" :key="item.id"
         v-scope="ChatItem({...item})"></div>
     </div>
+  </template>
+
+  <template id="message-item">
+
+  </template>
+
+  <template id="message-list">
+    <div class="messages-wrapper">
+
+    </div>
+  </template>
+
+  <template id="emoji-picker">
+    <div class="icon" title="插入表情">
+      <i class="iconfont icon-emoji"></i>
+    </div>
+    <div class="emoji-picker-pannel">
+
+    </div>
+  </template>
+
+  <template id="message-sender">
+    <div class="message-sender-tools">
+      <div class="message-sender-tools-block emoji-picker-block" v-scope="EmojiPicker()"></div>
+    </div>
+    <div class="message-sender-editor">
+      <div ref="textareaRef" class="textarea" contenteditable="true" @input="editInput" spellcheck="false"></div>
+    </div>
+    <div class="message-sender-tip">
+      按ctrl+enter发送
+    </div>
+  </template>
+
+  <template id="chat-room">
+    <div class="room-name">{{chatStore.room.name}}</div>
+    <div class="message-block" v-scope="MessageList()"></div>
+    <div class="sender-block" v-scope="MessageSender()"></div>
   </template>
 
   <!-- define end -->

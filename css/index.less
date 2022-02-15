@@ -1,4 +1,4 @@
-@import "//at.alicdn.com/t/font_1935475_avj4mc4ivnc.css";
+@import "//at.alicdn.com/t/font_1935475_omxxeshamzm.css";
 
 #utils {
   .avatar (@a-size: 45px) {
@@ -20,6 +20,15 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .custom-scroll(@scroll-bg:rgba(238, 238, 238, 0.3)) {
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 3px;
+      background-color: @scroll-bg;
+    }
   }
 }
 
@@ -55,11 +64,40 @@
       & > .left {
         background-color: @panel-bg - 15;
         display: grid;
-        grid-template-rows: 1fr auto;
+        grid-template-rows: min-content auto min-content;
         .avatar {
           margin: 0 auto;
           margin-top: 30px;
           #utils.avatar();
+        }
+        .add-items {
+          display: grid;
+          align-items: center;
+          justify-content: center;
+          .button {
+            display: inline-block;
+            height: 40px;
+            width: 40px;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #eee;
+            transition: background-color 0.3s, color 0.15s 0.15s;
+            &:hover {
+              background-color: #fff;
+              color: #333;
+            }
+            &:active {
+              color: #333;
+              background-color: #ddd;
+            }
+            .iconfont {
+              font-size: 24px;
+            }
+          }
         }
         .tools {
           .button {
@@ -73,6 +111,9 @@
             transition: color 0.3s;
             &:hover {
               color: #fff;
+            }
+            &:active {
+              color: #ddd;
             }
             & > .iconfont {
               font-size: 30px;
@@ -181,19 +222,81 @@
               }
             }
 
-            &::-webkit-scrollbar {
-              width: 6px;
-            }
-            &::-webkit-scrollbar-thumb {
-              border-radius: 3px;
-              background-color: rgba(238, 238, 238, 0.3);
-            }
+            #utils.custom-scroll();
           }
         }
         &.mini {
         }
       }
       & > .right {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 100%;
+        .chat-room-wrapper {
+          display: grid;
+          grid-template-rows: 60px auto 200px;
+          .room-name {
+            background-color: #fff;
+            display: grid;
+            align-items: center;
+            font-size: 24px;
+            padding-left: 20px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #eee;
+          }
+          .message-block {
+          }
+          .sender-block {
+            box-sizing: border-box;
+            border-top: 1px solid #eee;
+            display: grid;
+            grid-template-rows: 40px 1fr;
+            background-color: #fff;
+            .message-sender-tools {
+              display: flex;
+              padding: 0 10px;
+              &-block {
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+                &.emoji-picker-block {
+                  .icon {
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .iconfont {
+                      font-size: 24px;
+                      color: rgb(77, 77, 77);
+                    }
+                  }
+                }
+              }
+            }
+            .message-sender-editor {
+              overflow: hidden;
+              & > .textarea {
+                overflow: hidden;
+                overflow-y: auto;
+                // background-color: #eee;
+                height: 100%;
+                outline: none;
+                margin: 0 20px;
+                #utils.custom-scroll(#aaa);
+              }
+            }
+            .message-sender-tip {
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+              padding: 5px 0;
+              padding-right: 10px;
+              font-size: 12px;
+              color: #aaa;
+            }
+          }
+        }
       }
     }
   }
