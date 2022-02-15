@@ -1,12 +1,12 @@
-import { chatStore } from "../store.js"
-import { PVueComponent } from "../utils.js"
+import { userStore } from "../store.js"
+import { ChatMessage, PVueComponent } from "../utils.js"
 
-type MessageItemProps = {}
+type MessageItemProps = ChatMessage
 
-export const MessageItem: PVueComponent<MessageItemProps> = (props = {}) => {
+export const MessageItem: PVueComponent<MessageItemProps> = props => {
   return {
     ...props,
     $template: '#message-item',
-    chatStore
+    userStore
   }
 }

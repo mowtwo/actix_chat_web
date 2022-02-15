@@ -245,6 +245,53 @@
             border-bottom: 1px solid #eee;
           }
           .message-block {
+            overflow: hidden;
+            .messages-wrapper {
+              height: 100%;
+              overflow: hidden;
+              overflow-y: auto;
+              margin: 0 15px;
+              #utils.custom-scroll(#aaa);
+              .message-item {
+                display: flex;
+                margin: 20px 10px;
+                &.from-me {
+                  flex-direction: row-reverse;
+                  .message-content {
+                    align-items: flex-end;
+                    .message-text {
+                      background-color: rgb(53, 230, 68);
+                    }
+                  }
+                }
+                & > .avatar {
+                  #utils.avatar();
+                }
+                .message-content {
+                  flex: 1;
+                  overflow: hidden;
+                  margin-left: 20px;
+                  display: flex;
+                  flex-direction: column;
+                  .message-user {
+                    font-size: 14px;
+                    color: #333;
+                    #utils.simple-text();
+                  }
+                  .message-text {
+                    word-break: break-all;
+                    display: inline-block;
+                    max-width: calc(100% - 200px);
+                    font-size: 14px;
+                    margin-top: 8px;
+                    padding: 10px;
+                    border-radius: 10px;
+                    background-color: rgb(71, 172, 255);
+                    color: #fff;
+                  }
+                }
+              }
+            }
           }
           .sender-block {
             box-sizing: border-box;

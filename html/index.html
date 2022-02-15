@@ -34,7 +34,7 @@
         <div :class="['middle',leftMinize?'mini':'']">
           <div class="search-block" v-scope="SearchBlock({
                   placeholder:'搜索',onInput:searchInput
-                })"></div>
+                })" @vue:mounted="mounted" @vue:unmounted="unmounted"></div>
           <div class="chat-list" v-scope="ChatList()"></div>
         </div>
         <div class="right">
@@ -55,7 +55,8 @@
       </div>
       <div class="input-wrapper">
         <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" @focus="inputFocus = true"
-          @blur="nextTickBlur" ref="inputRef" type="text" v-model="searchStore.searchWords" @input="onInput">
+          @blur="nextTickBlur" ref="inputRef" type="text" v-model="searchStore.searchWords" @input="onInput"
+          @keydown="inputEsc">
       </div>
     </div>
   </template>
@@ -63,7 +64,7 @@
   <template id="chat-item">
     <div :class="['chat-item']" :title="nickname">
       <div class="avatar">
-        <img :src="avatar" alt="avatar">
+        <img :src="avatar" alt="avatar" draggable="false">
       </div>
       <div class="info">
         <div class="nickname">
@@ -85,12 +86,23 @@
   </template>
 
   <template id="message-item">
-
+    <div :class="['message-item',userStore.id === from.id? 'from-me':'']">
+      <div class="avatar">
+        <img :src="from.avatar" alt="avatar" draggable="false">
+      </div>
+      <div class="message-content">
+        <div class="message-user" :data-id="from.id">{{from.nickname}}</div>
+        <div class="message-text">
+          {{text}}
+        </div>
+      </div>
+    </div>
   </template>
 
   <template id="message-list">
-    <div class="messages-wrapper">
-
+    <div class="messages-wrapper" ref="messagesWrapperRef">
+      <div v-for="item of chatStore.room.message" :key="item.id" class="message-item-block" v-scope="MessageItem(item)">
+      </div>
     </div>
   </template>
 
@@ -108,7 +120,8 @@
       <div class="message-sender-tools-block emoji-picker-block" v-scope="EmojiPicker()"></div>
     </div>
     <div class="message-sender-editor">
-      <div ref="textareaRef" class="textarea" contenteditable="true" @input="editInput" spellcheck="false"></div>
+      <div @keydown.enter="withCtrlEnter" ref="textareaRef" class="textarea" contenteditable="true" @input="editInput"
+        spellcheck="false"></div>
     </div>
     <div class="message-sender-tip">
       按ctrl+enter发送
@@ -117,8 +130,8 @@
 
   <template id="chat-room">
     <div class="room-name">{{chatStore.room.name}}</div>
-    <div class="message-block" v-scope="MessageList()"></div>
-    <div class="sender-block" v-scope="MessageSender()"></div>
+    <div class="message-block" v-scope="MessageList({bindMessageListRef})" @vue:mounted="mounted"></div>
+    <div class="sender-block" v-scope="MessageSender({onSend})"></div>
   </template>
 
   <!-- define end -->

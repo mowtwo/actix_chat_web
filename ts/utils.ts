@@ -13,9 +13,12 @@ export type PVueComponentResult<Self> = {
 }
 export type PVueComponent<T> = (props: T) => PVueComponentResult<T>
 
+export type UserInfo = Omit<ChatItemProps, 'lastModify' | 'lastMessage'>
+
 export interface IMessageMeta {
+  id: string
   date: Date
-  from: Omit<ChatItemProps, 'lastModify' | 'lastMessage'>
+  from: UserInfo
 }
 
 export type TextMessage = {

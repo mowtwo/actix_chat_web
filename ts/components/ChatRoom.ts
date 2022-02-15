@@ -7,6 +7,19 @@ export const ChatRoom: PVueComponent<ChatRoomProps> = (props = {}) => {
   return {
     ...props,
     $template: '#chat-room',
-    chatStore
+    chatStore,
+    messageListRefs: null,
+    onSend() {
+      const messageListRefs = this.messageListRefs as HTMLDivElement
+      if (messageListRefs) {
+        messageListRefs.scrollTo({
+          behavior: 'smooth',
+          top: messageListRefs.scrollHeight - messageListRefs.scrollTop
+        })
+      }
+    },
+    bindMessageListRef(ref) {
+      this.messageListRefs = ref
+    }
   }
 }

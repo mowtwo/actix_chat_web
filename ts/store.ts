@@ -1,7 +1,8 @@
 import type { ChatItemProps } from "./components/ChatItem"
-import { ChatRoom, reactive } from "./utils.js"
+import { ChatRoom, reactive, UserInfo } from "./utils.js"
 
-export const userStore = reactive({
+export const userStore = reactive<UserInfo>({
+  id: '80064',
   nickname: 'Mowtwo',
   avatar: 'https://img0.baidu.com/it/u=2359361020,2055583759&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400'
 })
@@ -32,6 +33,7 @@ export const chatStore = reactive<ChatStoreT>({
     id: '1',
     message: [
       {
+        id: '1', 
         type: 'text',
         date: new Date(),
         text: 'test balabala',
