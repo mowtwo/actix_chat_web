@@ -6,14 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet/less" type="text/css" href="/css/index.less">
-  <script src="/js/less.init.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/less@4"></script>
+  <script src="/js/less.init.js"></script>
   <script src="/js/index.js"></script>
   <title>ChatRoom</title>
 </head>
 
 <body>
-  <div id="app" v-scope="App()">
+  <div id="app" v-scope="App()" @vue:mounted="mounted">
     <div class="app-size">
       <div class="app-block" @contextmenu="appProxyContextMenu">
         <div class="left">
@@ -26,7 +26,7 @@
             </div>
           </div>
           <div class="tools">
-            <div class="button setting" title="设置">
+            <div class="button setting" title="设置" @click="alert('暂未开发')">
               <i class="iconfont icon-setting"></i>
             </div>
           </div>
@@ -79,7 +79,8 @@
 
   <template id="chat-list">
     <div class="items-wrapper">
-      <div v-for="item of chatStore.chatList"
+      <div
+        v-for="item of chatStore.chatList.filter(({nickname})=>nickname.toLowerCase().includes(searchStore.searchWords.toLowerCase()))"
         :class="['item-wrapper',chatStore.currentUserId == item.id ? 'checked':'']" :key="item.id"
         v-scope="ChatItem({...item})"></div>
     </div>
@@ -101,13 +102,16 @@
 
   <template id="message-list">
     <div class="messages-wrapper" ref="messagesWrapperRef">
-      <div v-for="item of chatStore.room.message" :key="item.id" class="message-item-block" v-scope="MessageItem(item)">
+      <div class="messages-scroll-inner">
+        <div v-for="item of chatStore.room.message" :key="item.id" class="message-item-block"
+          v-scope="MessageItem(item)">
+        </div>
       </div>
     </div>
   </template>
 
   <template id="emoji-picker">
-    <div class="icon" title="插入表情">
+    <div class="icon" title="插入表情" @click="alert('暂未开发')">
       <i class="iconfont icon-emoji"></i>
     </div>
     <div class="emoji-picker-pannel">
@@ -120,11 +124,13 @@
       <div class="message-sender-tools-block emoji-picker-block" v-scope="EmojiPicker()"></div>
     </div>
     <div class="message-sender-editor">
-      <div @keydown.enter="withCtrlEnter" ref="textareaRef" class="textarea" contenteditable="true" @input="editInput"
-        spellcheck="false"></div>
+      <div @keydown.enter="withCtrlEnter" @paste="hackPaste" ref="textareaRef" class="textarea" contenteditable="true"
+        @input="editInput" spellcheck="false"></div>
     </div>
     <div class="message-sender-tip">
-      按ctrl+enter发送
+      <span :class="{
+        focus:tempInput.length>maxLength
+      }">已输入{{tempInput.length}}/{{maxLength}}</span>&nbsp;&nbsp;&nbsp;&nbsp;按ctrl+enter发送
     </div>
   </template>
 
@@ -132,6 +138,12 @@
     <div class="room-name">{{chatStore.room.name}}</div>
     <div class="message-block" v-scope="MessageList({bindMessageListRef})" @vue:mounted="mounted"></div>
     <div class="sender-block" v-scope="MessageSender({onSend})"></div>
+  </template>
+
+  <template id="right-menu">
+    <div class="right-menu">{
+      <div v-for="item of list" :key="item.id" class="right-menu-item" @click="itemClick(item)">{{item.text}}</div>
+    </div>
   </template>
 
   <!-- define end -->

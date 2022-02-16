@@ -1,2 +1,4 @@
-// open less dev
-less = { env: "development" };
+setTimeout(() => {
+  // open less dev
+  less = { env: "development" };
+}, 0);
