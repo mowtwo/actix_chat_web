@@ -140,12 +140,6 @@
     <div class="sender-block" v-scope="MessageSender({onSend})"></div>
   </template>
 
-  <template id="right-menu">
-    <div class="right-menu">{
-      <div v-for="item of list" :key="item.id" class="right-menu-item" @click="itemClick(item)">{{item.text}}</div>
-    </div>
-  </template>
-
   <!-- define end -->
   <script type="module" src="/js/ts-dist/app.js"></script>
 </body>

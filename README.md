@@ -19,6 +19,11 @@ git clone https://github.com/mowtwo/actix_chat_web
 - cargo-watch
 - Windows
 
+## TODO
+- [ ] 实现单聊
+- [ ] 实现群聊 
+- [ ] 实现基于本地服务器 
+
 ## 运行
 
 由于网页中的 js 实际上是有 TypeScript 编译得来，因此启动前可以先将 ts 代码编译
