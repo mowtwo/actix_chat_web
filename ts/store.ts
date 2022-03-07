@@ -4,7 +4,6 @@ import { ChatRoom, reactive, UserInfo } from "./utils.js"
 export const userStore = reactive<Required<UserInfo>>({
   id: '',
   nickname: '',
-  email: '',
   avatar: ''
 })
 

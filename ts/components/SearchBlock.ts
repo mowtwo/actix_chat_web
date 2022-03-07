@@ -19,7 +19,7 @@ export const SearchBlock: PVueComponent<SearchBlockProps> = props => {
       }, 100)
     },
     handleGlobalFocusSearch(e: KeyboardEvent) {
-      if (e.ctrlKey && e.key === 'f') {
+      if ((e.ctrlKey && e.key === 'f') || e.key === '/') {
         e.preventDefault()
         this.inputFocus = true
         const input = this.$refs?.inputRef as HTMLInputElement
